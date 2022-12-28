@@ -1,7 +1,7 @@
 import { Category } from "../model/Category";
-import { ICreateCategoryDTO } from "./ICategoriesRepository";
+import { ICategoriesRepository, ICreateCategoryDTO } from "./ICategoriesRepository";
 
-class CategoriesRepository {
+class PostgresCategoriesRepository implements ICategoriesRepository {
   private categories: Category[];
 
   constructor() {
@@ -18,6 +18,7 @@ class CategoriesRepository {
     })
 
     this.categories.push(category);
+    console.log(this.categories);
   }
 
   list(): Category[] {
@@ -28,6 +29,6 @@ class CategoriesRepository {
     const category = this.categories.find((category) => category.name === name );
     return category;
   }
-}
+};
 
-export { CategoriesRepository };
+export { PostgresCategoriesRepository };
