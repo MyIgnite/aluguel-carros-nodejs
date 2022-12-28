@@ -11,3 +11,5 @@ Serviços de envio de e-mails: esses serviços são responsáveis por enviar e-m
 Serviços de integração com APIs externas: esses serviços são responsáveis por se conectar a APIs externas e realizar operações em nome do sistema, como buscar dados de outro sistema ou enviar notificações.
 
 Em geral, os serviços são projetados para serem reutilizáveis e podem ser chamados por vários componentes do sistema. Eles também podem ser usados para separar lógicas de negócio complexas em pedaços mais gerenciáveis.
+
+Em uma arquiterura limpa os serviços não devem conhecer qual é o tipo de banco de dados, ou seja, conhecer abstração (a interface ) e nunca a implementação.
