@@ -1,0 +1,1 @@
+A pasta "routes" recebe arquivos responsáveis em receber os dados da requisição e devolver uma resposta. Algo pode ser executado entre o recebimento e a resposta, a rota não seve se preocupar com as regras dessa execução. Sendo assim, isole essa execução dentro de um arquivo na pasta "services".
