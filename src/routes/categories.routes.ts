@@ -1,9 +1,11 @@
 import { Router } from "express";
+// import { CategoriesRepository } from "../modules/cars/repositories/CategoriesRepository";
 import { PostgresCategoriesRepository } from "../modules/cars/repositories/PostgresRepositoriesCategory";
 
 import { CreateCategoryService } from "../modules/cars/services/CreateCategoryServices";
 
 const categoriesRoutes = Router();
+// const categoriesRepository = new CategoriesRepository();
 const categoriesRepository = new PostgresCategoriesRepository();
 
 categoriesRoutes.post("/", (request, response) => {
