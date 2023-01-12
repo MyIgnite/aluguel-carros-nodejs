@@ -4,8 +4,28 @@ import { ICategoriesRepository, ICreateCategoryDTO } from "./ICategoriesReposito
 class CategoriesRepository implements ICategoriesRepository {
   private categories: Category[];
 
-  constructor() {
+  // Singleton
+
+  /**
+   * Singleton é um padrão de projeto que garante somente uma instância de uma classe. 
+   * Fornece um ponto de acesso global para essa instância. 
+   * É comumente usado para objetos que precisam manter um estado compartilhado em toda a aplicação.
+   */
+
+  private static INSTANCE: CategoriesRepository;
+
+  private constructor() {
     this.categories = [];
+  }
+
+  public static getInstance(): CategoriesRepository {
+    const instaceAlreadyExists = !CategoriesRepository.INSTANCE;
+    
+    if(instaceAlreadyExists) {
+        CategoriesRepository.INSTANCE = new CategoriesRepository();
+    }
+
+    return CategoriesRepository.INSTANCE;
   }
 
   create({ name, description }: ICreateCategoryDTO): void {
