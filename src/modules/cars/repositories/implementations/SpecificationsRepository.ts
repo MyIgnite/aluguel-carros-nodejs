@@ -4,10 +4,30 @@ import { ICreateSpecificationDTO, ISpecificationRepository } from "../ISpecifica
 class SpecificationsRepository implements ISpecificationRepository {
   private specifications: Specification[];
 
-  constructor() {
+   // Singleton
+
+  /**
+   * Singleton é um padrão de projeto que garante somente uma instância de uma classe. 
+   * Fornece um ponto de acesso global para essa instância. 
+   * É comumente usado para objetos que precisam manter um estado compartilhado em toda a aplicação.
+   */
+  
+  private static INSTANCE: SpecificationsRepository;
+
+  private constructor() {
     this.specifications = [];
   }
-  
+
+  public static getInstance(): SpecificationsRepository {
+    const instaceAlreadyExists = !SpecificationsRepository.INSTANCE;
+    
+    if(instaceAlreadyExists) {
+      SpecificationsRepository.INSTANCE = new SpecificationsRepository();
+    }
+
+    return SpecificationsRepository.INSTANCE;
+  }
+
   create({ name, description }: ICreateSpecificationDTO): void {
     const specification = new Specification();
 
@@ -18,6 +38,10 @@ class SpecificationsRepository implements ISpecificationRepository {
     })
 
     this.specifications.push(specification);
+  }
+
+  list(): Specification[] {
+    return this.specifications;
   }
 
   findByName(name: string): Specification {
