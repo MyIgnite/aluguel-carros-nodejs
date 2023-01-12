@@ -1,0 +1,7 @@
+A pasta "useCase" em uma aplicação Node.js é geralmente usada para armazenar códigos que representam os casos de uso da aplicação. Os casos de uso são representações funcionais do sistema, que descrevem como os usuários interagem com ele para alcançar seus objetivos. Eles descrevem as regras e os fluxos de trabalho da aplicação.
+
+A pasta "useCase" é geralmente usada para organizar o código da aplicação em torno dos casos de uso, em vez de organizá-lo em torno de entidades ou recursos. Isso ajuda a manter o código coeso e fácil de entender, pois todo o código relacionado a um determinado caso de uso está agrupado em um único local. Além disso, ajuda a separar as preocupações, o que facilita o teste e manutenção da aplicação.
+
+Os arquivos dentro da pasta "useCase" geralmente são organizados por recursos/funcionalidade e representam as funções que realizam as operações necessárias para cada caso de uso, como validação de dados, acesso a banco de dados, tratamento de erros, etc.
+
+Em resumo, a pasta "useCase" é usada para armazenar códigos que representam os casos de uso da aplicação, ajudando a manter o código coeso e fácil de entender, separando as preocupações e facilitando o teste e manutenção da aplicação.
