@@ -1,3 +1,5 @@
+Este módulo pode estar ausente caso os serviços estejam na estrutura useCase.
+
 A pasta "services" é uma pasta comum em projetos de software que é usada para armazenar código que implementa funcionalidades específicas de negócio ou regras de negócio. Os arquivos nessa pasta geralmente são chamados de "serviços" e são responsáveis por realizar tarefas específicas ou fornecer funcionalidades a outros componentes do sistema.
 
 Exemplos de serviços que podem ser encontrados em uma pasta "services" incluem:
