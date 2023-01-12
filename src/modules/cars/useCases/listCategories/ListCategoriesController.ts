@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { ListCategoryUseCase } from "./ListCategoryUseCase";
+import { ListCategoryUseCase } from "./ListCategoiesUseCase";
 
 class ListCategoriesController {
 
