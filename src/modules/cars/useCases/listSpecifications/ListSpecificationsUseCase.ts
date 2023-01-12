@@ -2,10 +2,10 @@ import { Specification } from "../../model/Specification";
 import { ISpecificationRepository } from "../../repositories/ISpecificationsRepository";
 
 class ListSpecificationsUseCase {
-  constructor (private listCategoryRepository: ISpecificationRepository) {}
+  constructor (private specificationsRepository: ISpecificationRepository) {}
 
   execute(): Specification[] {
-    const specifications = this.listCategoryRepository.list();
+    const specifications = this.specificationsRepository.list();
     return specifications;
   }
 }

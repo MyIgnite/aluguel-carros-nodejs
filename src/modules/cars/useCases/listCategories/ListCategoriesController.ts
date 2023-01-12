@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
-import { ListCategoryUseCase } from "./ListCategoiesUseCase";
+import { ListCategoriesUseCase } from "./ListCategoiesUseCase";
 
 class ListCategoriesController {
 
-  constructor(private listCategoryUseCase: ListCategoryUseCase){}
+  constructor(private listCategoryUseCase: ListCategoriesUseCase){}
 
   handle(request: Request, response: Response): Response {
     const categories = this.listCategoryUseCase.execute();

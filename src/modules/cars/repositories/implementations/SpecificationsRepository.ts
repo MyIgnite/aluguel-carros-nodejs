@@ -19,6 +19,7 @@ class SpecificationsRepository implements ISpecificationRepository {
   }
 
   public static getInstance(): SpecificationsRepository {
+    console.log(SpecificationsRepository.INSTANCE)
     const instaceAlreadyExists = !SpecificationsRepository.INSTANCE;
     
     if(instaceAlreadyExists) {
