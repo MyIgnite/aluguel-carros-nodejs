@@ -1,6 +1,7 @@
 import { parse as csvParse } from "csv-parse";
 import fs from "fs";
 import { ICategoriesRepository } from "../../repositories/ICategoriesRepository";
+import { CreateCategoryUseCase } from "../createCategory/CreateCategoryUseCase";
 
 interface IImportCategory {
   name: string;
@@ -36,18 +37,10 @@ class ImportCategoryUseCase {
 
   async execute(file: Express.Multer.File): Promise<void> {
     const categories = await this.loadImportsCategories(file);
-    console.log(categories)
+    const createCategoryUseCase = new CreateCategoryUseCase(this.categoriesRepository);
 
-    categories.map(async (category) => {
-      const { name, description } = category;
-
-      const categoryAlreadyExists = this.categoriesRepository.findByName(name);
-
-      if(categoryAlreadyExists) {
-        throw new Error("Category Already exists!");
-      }
-
-      this.categoriesRepository.create({ name, description });
+    categories.map(async ({name, description}) => {
+      createCategoryUseCase.execute({name, description});
     });
   }
 }
