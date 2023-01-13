@@ -46,8 +46,8 @@
       },
       "get": {
         "tags": ["Category"],
-        "summary": "Lista todas categoria",
-        "description": "Lista todas categoria",
+        "summary": "Lista todas categorias",
+        "description": "Lista todas categorias",
         "responses": {
           "200": {
             "description": "Sucesso",
