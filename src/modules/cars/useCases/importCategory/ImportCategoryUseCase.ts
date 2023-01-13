@@ -26,6 +26,7 @@ class ImportCategoryUseCase {
         categories.push(category);
       })
       .on("end", () => {
+        fs.promises.unlink(file.path);
         resolve(categories);
       })
       .on("error", (err) => {
@@ -38,7 +39,11 @@ class ImportCategoryUseCase {
     const categories = await this.loadImportsCategories(file);
 
     categories.map(async ({name, description}) => {
-      this.categoriesRepository.create({ name, description });
+      const categoryAlreadyExists = !this.categoriesRepository.findByName(name);
+
+      if(categoryAlreadyExists) {
+        this.categoriesRepository.create({ name, description });
+      }
     });
   }
 }
