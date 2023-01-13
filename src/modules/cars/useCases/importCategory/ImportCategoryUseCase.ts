@@ -1,7 +1,6 @@
 import { parse as csvParse } from "csv-parse";
 import fs from "fs";
 import { ICategoriesRepository } from "../../repositories/ICategoriesRepository";
-import { CreateCategoryUseCase } from "../createCategory/CreateCategoryUseCase";
 
 interface IImportCategory {
   name: string;
@@ -9,7 +8,9 @@ interface IImportCategory {
 }
 
 class ImportCategoryUseCase {
-  constructor(private categoriesRepository: ICategoriesRepository){}
+  constructor(
+    private categoriesRepository: ICategoriesRepository,
+    ){}
 
   loadImportsCategories(file: Express.Multer.File): Promise<IImportCategory[]> {
     return new Promise((resolve, reject) => {
@@ -37,10 +38,9 @@ class ImportCategoryUseCase {
 
   async execute(file: Express.Multer.File): Promise<void> {
     const categories = await this.loadImportsCategories(file);
-    const createCategoryUseCase = new CreateCategoryUseCase(this.categoriesRepository);
 
     categories.map(async ({name, description}) => {
-      createCategoryUseCase.execute({name, description});
+      this.categoriesRepository.create({ name, description });
     });
   }
 }
