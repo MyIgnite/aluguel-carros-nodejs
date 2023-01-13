@@ -7,6 +7,43 @@
     "contact": {
       "email": "renan@alugcar.com"
     }
-
+  },
+  "paths": {
+    "/categories": {
+      "post": {
+        "tags": ["Category"],
+        "summary": "Criar uma categoria",
+        "description": "Criar uma nova categoria",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "name": "hatch",
+                  "description": "carro pequeno"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Criado"
+          },
+          "500": {
+            "description": "A categoria já existe"
+          }
+        }
+      }
+    }
   }
 }
