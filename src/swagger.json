@@ -1,0 +1,12 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "AlugCar Documentação",
+    "description": "Documentação da API AlugCar",
+    "version": "1.0.0",
+    "contact": {
+      "email": "renan@alugcar.com"
+    }
+
+  }
+}
