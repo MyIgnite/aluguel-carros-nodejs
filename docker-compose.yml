@@ -1,0 +1,51 @@
+version: "3.7"
+
+networks:
+  postgresql-network:
+    driver: bridge
+    driver_opts:
+      com.docker.network.bridge.enable_icc: "true"
+services:
+  database: #NOME DO SERVICE QUE DEVE ESTAR NO ARQUIVO DE CRIAÇÃO DE CONEXÃO
+    image: postgres
+    container_name: database_acar
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=docker
+      - POSTGRES_PASSWORD=acar
+      - POSTGRES_DB=acar
+    volumes:
+      - pgdata:/data/postgres
+    networks:
+      - postgresql-network
+    healthcheck:
+      test: [ "CMD", "psql", "-U", "docker", "-W", "acar", "database_acar", "acar" ,"-c", "SELECT 1;" ]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+
+  app:
+    build: .
+    container_name: acar
+    restart: always
+    ports:
+      - 4444:4444
+      - 5555:5555
+    volumes:
+      - .:/app
+    depends_on:
+      - database
+    networks:
+      - postgresql-network
+    healthcheck:
+      test: wget --quiet --tries=1 --spider http://localhost:4444/healthcheck || exit 1
+      interval: 60s
+      timeout: 1s
+      retries: 3
+      start_period: 20s
+
+volumes:
+  pgdata:
+    driver: local

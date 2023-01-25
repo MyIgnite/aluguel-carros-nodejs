@@ -14,6 +14,9 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggwerFile));
 
 app.use(router);
 
-app.listen(9090, function() {
-  console.log('Server started on http://localhost:9090');
+app.listen(4444, function() {
+  console.log(`
+    Server http://localhost:4444
+    Swagger http://localhost:4444/api-docs
+  `);
 });
