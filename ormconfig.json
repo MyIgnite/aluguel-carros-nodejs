@@ -5,6 +5,7 @@
   "username": "dockeruser",
   "password": "dockerpass",
   "database": "acar",
+  "entities": ["./src/modules/**/entities/*.ts"],
   "migrations": ["./src/database/migrations/*.ts"],
   "cli": {
     "migrationsDir": "./src/database/migrations"

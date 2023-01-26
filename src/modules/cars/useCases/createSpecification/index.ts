@@ -1,8 +1,9 @@
-import { SpecificationsRepository } from "../../repositories/implementations/SpecificationsRepository";
+// import { SpecificationsRepository } from "../../repositories/implementations/SpecificationsRepository";
 import { CreateSpecificationController } from "./CreateSpecificationController";
 import { CreateSpecificationUseCase } from "./CreateSpecificationUseCase";
 
-const specificationRepository = SpecificationsRepository.getInstance();
+// const specificationRepository = SpecificationsRepository.getInstance();
+const specificationRepository = null;
 
 const createSpecificationUseCase = new CreateSpecificationUseCase(specificationRepository);
 
