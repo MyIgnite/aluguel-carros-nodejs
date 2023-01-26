@@ -14,6 +14,8 @@ app.use(express.json());
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggwerFile));
 
+app.get("/healthcheck", (request, response) => response.status(200).send('OK'));
+
 app.use(router);
 
 app.listen(4444, function() {
