@@ -18,9 +18,10 @@ services:
       - POSTGRES_PASSWORD=dockerpass
       - POSTGRES_DB=acar
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - pgdata:/data/postgres
     networks:
       - postgresql-network
+
 
   app:
     build: .
@@ -32,6 +33,8 @@ services:
       - .:/usr/app
     networks:
       - postgresql-network
+    links:
+      - database_acar
     depends_on:
       - database_acar
 

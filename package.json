@@ -1,7 +1,10 @@
 {
   "license": "MIT",
   "scripts": {
-    "dev": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules --respawn src/server.ts"
+    "dev": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules --respawn src/server.ts",
+    "typeorm": "ts-node-dev ./node_modules/typeorm/cli",
+    "migration:create": "ts-node-dev ./node_modules/typeorm/cli migration:create -n",
+    "migration:run": "ts-node-dev ./node_modules/typeorm/cli migration:run"
   },
   "dependencies": {
     "csv-parse": "^5.3.3",
