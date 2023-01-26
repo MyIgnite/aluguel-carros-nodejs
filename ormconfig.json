@@ -1,8 +1,8 @@
 {
   "type": "postgres",
-  "host": "localhost",
+  "host": "database_acar",
   "port": 5432,
-  "username": "",
-  "password": "",
+  "username": "dockeruser",
+  "password": "dockerpass",
   "database": "acar"
 }

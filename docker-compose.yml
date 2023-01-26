@@ -1,11 +1,40 @@
 version: "3.7"
 
+networks:
+  postgresql-network:
+    driver: bridge
+    driver_opts:
+      com.docker.network.bridge.enable_icc: "true"
+
 services:
+  database_acar:
+    image: postgres
+    container_name: database_acar
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=dockeruser
+      - POSTGRES_PASSWORD=dockerpass
+      - POSTGRES_DB=acar
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - postgresql-network
+
   app:
     build: .
-    container_name: acar
+    container_name: app_acar
     restart: always
     ports:
       - 4444:4444
     volumes:
       - .:/usr/app
+    networks:
+      - postgresql-network
+    depends_on:
+      - database_acar
+
+volumes:
+  pgdata:
+    driver: local
