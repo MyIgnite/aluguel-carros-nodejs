@@ -1,51 +1,38 @@
+import { getRepository, Repository } from "typeorm";
 import { Specification } from "../../entities/Specification";
-import { ICreateSpecificationDTO, ISpecificationRepository } from "../ISpecificationsRepository";
+import { ICreateSpecificationDTO, ISpecificationsRepository } from "../ISpecificationsRepository";
 
-class SpecificationsRepository implements ISpecificationRepository {
-  private specifications: Specification[];
+/** NOTE Typeorm
+ * Uma classe implementa uma interface e fornecer uma camada de abstração para 
+ * acessar os dados de uma entidade no banco de dados.
+ * 
+ * Repository fornece uma estrutura básica para armazenar, recuperar e 
+ * gerenciar dados da entidade passada como parâmetro.
+ * 
+ */
 
-   // Singleton
+class SpecificationsRepository implements ISpecificationsRepository {
+  private repository: Repository<Specification>
 
-  /**
-   * Singleton é um padrão de projeto que garante somente uma instância de uma classe. 
-   * Fornece um ponto de acesso global para essa instância. 
-   * É comumente usado para objetos que precisam manter um estado compartilhado em toda a aplicação.
-   */
-  
-  private static INSTANCE: SpecificationsRepository;
-
-  private constructor() {
-    this.specifications = [];
+  constructor() {
+    this.repository = getRepository(Specification);
   }
 
-  public static getInstance(): SpecificationsRepository {
-    const instaceAlreadyExists = !SpecificationsRepository.INSTANCE;
-    
-    if(instaceAlreadyExists) {
-      SpecificationsRepository.INSTANCE = new SpecificationsRepository();
-    }
-
-    return SpecificationsRepository.INSTANCE;
-  }
-
-  create({ name, description }: ICreateSpecificationDTO): void {
-    const specification = new Specification();
-
-    Object.assign(specification, {
+  async create({ name, description }: ICreateSpecificationDTO): Promise<void> {
+    const specification = this.repository.create({
       name,
-      description,
-      create_at: new Date()
+      description
     })
 
-    this.specifications.push(specification);
+    await this.repository.save(specification)
   }
 
-  list(): Specification[] {
-    return this.specifications;
+  async list(): Promise<Specification[]> {
+    return await this.repository.find();
   }
 
-  findByName(name: string): Specification {
-    const specification = this.specifications.find(specification => specification.name === name);
+  async findByName(name: string): Promise<Specification> {
+    const specification = await this.repository.findOne({ name });
     return specification;
   }
 }
