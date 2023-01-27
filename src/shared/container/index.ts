@@ -1,15 +1,21 @@
 import { container } from "tsyringe";
+
 import { ICategoriesRepository } from "../../modules/cars/repositories/ICategoriesRepository";
 import { CategoriesRepository } from "../../modules/cars/repositories/implementations/CategoriesRepository";
 
+import { SpecificationsRepository } from "../../modules/cars/repositories/implementations/SpecificationsRepository";
+import { ISpecificationsRepository } from "../../modules/cars/repositories/ISpecificationsRepository";
 
 /** NOTE TSyringe registerSingleton
+ * 
+ * CategoriesRepository e ICategoriesRepository é usado como exemplos, mas o
+ * container pode conter outras classes.
  * 
  * Está sendo registrada uma classe chamada "CategoriesRepository" como uma 
  * instância única (singleton) no container de dependências, utilizando a 
  * interface "ICategoriesRepository". Isso significa que sempre que essa classe 
  * for requisitada pelo container, ele retornará a mesma instância, ao invés de 
- * criar uma nova a cada vez.
+ * criar uma nova a cada vez. 
  * 
  * Isso pode ser útil para garantir que sejam compartilhados os mesmos dados 
  * entre diferentes partes do aplicativo, sem que haja a necessidade de recriar 
@@ -22,3 +28,9 @@ container.registerSingleton<ICategoriesRepository>(
   "CategoriesRepository",
   CategoriesRepository
 );
+
+container.registerSingleton<ISpecificationsRepository>(
+  "SpecificationsRepository",
+  SpecificationsRepository
+);
+
