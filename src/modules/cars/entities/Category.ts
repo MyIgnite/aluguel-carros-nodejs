@@ -1,6 +1,10 @@
 import { Column, CreateDateColumn, Entity, PrimaryColumn } from "typeorm";
 import { v4 as uuidV4 } from "uuid";
 
+/** NOTE Typeorm
+ * Fornece uma coleção para a entidade
+ */
+
 @Entity("categories")
 class Category {
 

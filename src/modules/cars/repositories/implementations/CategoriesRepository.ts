@@ -2,6 +2,15 @@ import { getRepository, Repository } from "typeorm";
 import { Category } from "../../entities/Category";
 import { ICategoriesRepository, ICreateCategoryDTO } from "../ICategoriesRepository";
 
+/** NOTE Typeorm
+ * Uma classe implementa uma interface e fornecer uma camada de abstração para 
+ * acessar os dados de uma entidade no banco de dados.
+ * 
+ * Repository fornece uma estrutura básica para armazenar, recuperar e 
+ * gerenciar dados da entidade passada como parâmetro.
+ * 
+ */
+
 class CategoriesRepository implements ICategoriesRepository {
 
   private repository: Repository<Category>;
