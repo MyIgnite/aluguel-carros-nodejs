@@ -12,45 +12,33 @@
     "/categories": {
       "post": {
         "tags": ["Category"],
-        "summary": "Criar uma categoria",
-        "description": "Criar uma nova categoria",
+        "summary": "Create a category",
+        "description": "Create a new category",
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string"
-                  },
-                  "description": {
-                    "type": "string"
-                  }
-                },
-                "example": {
-                  "name": "hatch",
-                  "description": "carro pequeno"
-                }
+                "$ref": "#definitions/Categories"
               }
             }
           }
         },
         "responses": {
           "201": {
-            "description": "Criado"
+            "description": "Created"
           },
           "500": {
-            "description": "A categoria já existe"
+            "description": "Category Already exists"
           }
         }
       },
       "get": {
         "tags": ["Category"],
-        "summary": "Lista todas categorias",
-        "description": "Lista todas categorias",
+        "summary": "List all categories",
+        "description": "List all categories",
         "responses": {
           "200": {
-            "description": "Sucesso",
+            "description": "Created",
             "content": {
               "application/json": {
                 "schema": {
@@ -71,6 +59,62 @@
             }
           }
         }
+      }
+    },
+    "/specifications": {
+      "post": {
+        "tags": ["Spefifications"],
+        "summary": "Criar uma espeficicação",
+        "description": "Criar uma nova especificação",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+               "$ref": "#definitions/Specifications"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "500": {
+            "description": "Specification Already exists"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Categories": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      },
+      "example": {
+        "name": "SEDAN",
+        "email": "Carro com porta mala grande"
+      }
+    },
+    "Specifications": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      },
+      "example": {
+        "name": "Especificação teste",
+        "description": "Especificação Swagger"
       }
     }
   }
