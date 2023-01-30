@@ -35,7 +35,7 @@
         "description": "List all categories",
         "responses": {
           "200": {
-            "description": "Created",
+            "description": "Success",
             "content": {
               "application/json": {
                 "schema": {
@@ -88,6 +88,26 @@
           "201": { "description": "Created" },
           "500": { "description": "Specification Already exists" }
         }
+      },
+      "get": {
+        "tags": ["Spefifications"],
+        "summary": "List all spefifications",
+        "description": "List all spefifications",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {          
+                    "$ref": "#definitions/Specifications"
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     }
   },
@@ -112,7 +132,7 @@
     "CategoryImport": {
       "type": "object",
       "properties": {
-        "file": {
+        "file CSV": {
           "type": "file",
           "formar": "binary"
         }
