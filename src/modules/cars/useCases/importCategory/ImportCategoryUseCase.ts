@@ -1,5 +1,6 @@
 import { parse as csvParse } from "csv-parse";
 import fs from "fs";
+import { inject, injectable } from "tsyringe";
 import { ICategoriesRepository } from "../../repositories/ICategoriesRepository";
 
 interface IImportCategory {
@@ -7,11 +8,29 @@ interface IImportCategory {
   description: string;
 }
 
+/** NOTE TSyringe
+ * @injectable() é um decorador que é aplicado a uma classe para 
+ * indicar que ela pode ser "injetada". 
+ * 
+ * A string é um token utilizado para identicar dentro do
+ * container a classe que deve ser instanciada. 
+ * "src/shared/container/index.ts"
+ */
+
+@injectable()
 class ImportCategoryUseCase {
-  constructor(private categoriesRepository: ICategoriesRepository){}
+
+  constructor(
+    @inject("CategoriesRepository")
+    private categoriesRepository: ICategoriesRepository
+  ) {}
 
   loadImportsCategories(file: Express.Multer.File): Promise<IImportCategory[]> {
     return new Promise((resolve, reject) => {
+
+      console.log("file", file)
+
+
       const stream = fs.createReadStream(file.path);
       const categories: IImportCategory[] = [];
 
@@ -39,10 +58,10 @@ class ImportCategoryUseCase {
     const categories = await this.loadImportsCategories(file);
 
     categories.map(async ({name, description}) => {
-      const categoryAlreadyExists = !this.categoriesRepository.findByName(name);
+      const categoryAlreadyExists = !await this.categoriesRepository.findByName(name);
 
       if(categoryAlreadyExists) {
-        this.categoriesRepository.create({ name, description });
+        await this.categoriesRepository.create({ name, description });
       }
     });
   }

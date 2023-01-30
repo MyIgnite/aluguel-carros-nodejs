@@ -11,7 +11,7 @@
   "paths": {
     "/categories": {
       "post": {
-        "tags": ["Category"],
+        "tags": ["Categories"],
         "summary": "Create a category",
         "description": "Create a new category",
         "requestBody": {
@@ -33,7 +33,7 @@
         }
       },
       "get": {
-        "tags": ["Category"],
+        "tags": ["Categories"],
         "summary": "List all categories",
         "description": "List all categories",
         "responses": {
@@ -57,6 +57,33 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "/categories/import": {
+      "post": {
+        "tags": ["Categories"],
+        "summary": "Upload a new category",
+        "description": "Upload a new category",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "file",
+                    "formar": "binary"
+                  }
+                }
+              }
+            }
+          }      
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
           }
         }
       }
@@ -99,7 +126,7 @@
       },
       "example": {
         "name": "SEDAN",
-        "email": "Carro com porta mala grande"
+        "description": "Carro com porta mala grande"
       }
     },
     "Specifications": {

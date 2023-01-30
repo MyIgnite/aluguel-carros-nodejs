@@ -13,7 +13,7 @@ import "./database";
 /** NOTE TSyringe
  * 
  * Importar o container permite instanciá-lo e acessar os repositórios facilmente, 
- * sem precisar se preocupar com a criação das instâncias. 
+ * sem precisar se preocupar com a criação das instâncias.
  * Isso facilita a escalabilidade e manutenção do código.
  */
 
