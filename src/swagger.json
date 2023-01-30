@@ -18,18 +18,15 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#definitions/Categories"
+                "properties": { "$ref": "#definitions/Categories" },
+                "$ref": "#definitions/CategoriesExample"
               }
             }
           }
         },
         "responses": {
-          "201": {
-            "description": "Created"
-          },
-          "500": {
-            "description": "Category Already exists"
-          }
+          "201": { "description": "Created" },
+          "500": { "description": "Category Already exists" }
         }
       },
       "get": {
@@ -43,16 +40,8 @@
               "application/json": {
                 "schema": {
                   "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "name": {
-                        "type": "string"
-                      },
-                      "description": {
-                        "type": "string"
-                      }
-                    }
+                  "items": {          
+                    "$ref": "#definitions/Categories"
                   }
                 }
               }
@@ -70,45 +59,34 @@
           "content": {
             "multipart/form-data": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "file": {
-                    "type": "file",
-                    "formar": "binary"
-                  }
-                }
+                "$ref": "#definitions/CategoryImport"
               }
             }
           }      
         },
         "responses": {
-          "201": {
-            "description": "Created"
-          }
+          "201": { "description": "Created" }
         }
       }
     },
     "/specifications": {
       "post": {
         "tags": ["Spefifications"],
-        "summary": "Criar uma espeficicação",
-        "description": "Criar uma nova especificação",
+        "summary": "Create a specification",
+        "description": "Create a new specification",
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-               "$ref": "#definitions/Specifications"
+                "properties": { "$ref": "#definitions/Specifications" },
+                "$ref": "#definitions/SpecificationsExample"
               }
             }
           }
         },
         "responses": {
-          "201": {
-            "description": "Created"
-          },
-          "500": {
-            "description": "Specification Already exists"
-          }
+          "201": { "description": "Created" },
+          "500": { "description": "Specification Already exists" }
         }
       }
     }
@@ -123,10 +101,21 @@
         "description": {
           "type": "string"
         }
-      },
+      }
+    },
+    "CategoriesExample": {
       "example": {
         "name": "SEDAN",
         "description": "Carro com porta mala grande"
+      }
+    },
+    "CategoryImport": {
+      "type": "object",
+      "properties": {
+        "file": {
+          "type": "file",
+          "formar": "binary"
+        }
       }
     },
     "Specifications": {
@@ -138,10 +127,12 @@
         "description": {
           "type": "string"
         }
-      },
+      }
+    },
+    "SpecificationsExample": {
       "example": {
-        "name": "Especificação teste",
-        "description": "Especificação Swagger"
+        "name": "Câmbio automático",
+        "description": "Carro com troca de marcha automática"
       }
     }
   }
