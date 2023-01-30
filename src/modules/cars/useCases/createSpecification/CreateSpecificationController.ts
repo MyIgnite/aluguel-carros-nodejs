@@ -4,10 +4,8 @@ import { CreateSpecificationUseCase } from "./CreateSpecificationUseCase";
 
 /** NOTE TSyringe
  * 
- * container.resolve(CreateSpecificationUseCase) é usado para resolver 
- * (ou instanciar) a classe CreateSpecificationUseCase através do container. 
- * Ele procura por uma classe registrada com o nome CreateSpecificationUseCase no 
- * container e cria uma instância dessa classe. 
+ * container.resolve() é usado para resolver (ou instanciar) a classe passada 
+ * como parâmetro através do container.
  */
 
 class CreateSpecificationController {

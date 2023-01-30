@@ -7,10 +7,10 @@ interface IRequest {
 }
 
 /** NOTE TSyringe
- * @injectable() é um decorador que é aplicado a uma classe para indicar que ela
- * pode ser "injetada".
+ * @injectable() é um decorador que é aplicado a uma classe para 
+ * indicar que ela pode ser "injetada". 
  * 
- * A string "CategoriesRepository" é um token utilizado para identicar dentro do
+ * A string é um token utilizado para identicar dentro do
  * container a classe que deve ser instanciada. 
  * "src/shared/container/index.ts"
  */

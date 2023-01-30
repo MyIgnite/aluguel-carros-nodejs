@@ -5,10 +5,8 @@ import { CreateCategoryUseCase } from "./CreateCategoryUseCase";
 
 /** NOTE TSyringe
  * 
- * container.resolve(CreateCategoryUseCase) é usado para resolver 
- * (ou instanciar) a classe CreateCategoryUseCase através do container. 
- * Ele procura por uma classe registrada com o nome CreateCategoryUseCase no 
- * container e cria uma instância dessa classe. 
+ * container.resolve() é usado para resolver (ou instanciar) a classe passada 
+ * como parâmetro através do container.
  */
 
 class CreateCategoryController {
