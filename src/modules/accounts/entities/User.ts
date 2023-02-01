@@ -1,6 +1,10 @@
 import { Column, CreateDateColumn, Entity, PrimaryColumn } from "typeorm";
 import { v4 as uuidV4 } from "uuid";
 
+/** NOTE Typeorm
+ * Fornece uma coleção para a entidade
+ */
+
 @Entity("users")
 class User {
 
@@ -23,7 +27,7 @@ class User {
   driver_license: string;
 
   @Column()
-  isAdmin?: boolean;
+  isAdmin: boolean;
 
   @CreateDateColumn()
   created_at: Date;
