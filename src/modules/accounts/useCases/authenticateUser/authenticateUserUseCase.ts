@@ -25,6 +25,12 @@ interface IResponse {
  * "src/shared/container/index.ts"
  */
 
+/** NOTE JWT
+ * 1 - Verificar se o usuário existe
+ * 2 - Verificar se a senha está correta
+ * 3 - Gerar jsonwebtoken e retorna-lo
+ */
+
 @injectable()
 class AuthenticateUserUseCase {
   
@@ -56,7 +62,6 @@ class AuthenticateUserUseCase {
       user: {
         name: user.name,
         email: user.email
-
       }
     }
 
