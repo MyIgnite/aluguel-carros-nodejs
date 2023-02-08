@@ -1,5 +1,7 @@
 import { Request, Response } from "express";
 import { container } from "tsyringe";
+import { AppError } from "../../../../errors/AppError";
+import HttpStatusCode from "../../../../errors/HttpStatusCode";
 import { AuthenticateUserUseCase } from "./authenticateUserUseCase";
 
 /** NOTE TSyringe
@@ -11,14 +13,25 @@ import { AuthenticateUserUseCase } from "./authenticateUserUseCase";
 class AuthenticateUserController {
 
   async handle(request: Request, response: Response) {
-    const { email, password } = request.body;
+    
+    try {
+      const { email, password } = request.body;
+  
+      const authenticateUserUseCase = container.resolve(AuthenticateUserUseCase);
+  
+      const token = 
+        await authenticateUserUseCase.execute({ email, password});
+  
+      return response.json(token)
+      
+    } catch (error) {
+        if(error.message === "Email or password incorrect!") {
+          throw new AppError(error.message, HttpStatusCode.UNAUTHORIZED);
+        }
 
-    const authenticateUserUseCase = container.resolve(AuthenticateUserUseCase);
+        throw new Error(error.message);
+    }
 
-    const token = 
-      await authenticateUserUseCase.execute({ email, password});
-
-    return response.json(token)
   }
 }
 
