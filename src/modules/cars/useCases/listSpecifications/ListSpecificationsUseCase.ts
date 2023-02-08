@@ -22,6 +22,11 @@ class ListSpecificationsUseCase {
 
   async execute(): Promise<Specification[]> {
     const specifications = await this.specificationsRepository.list();
+
+    if(!specifications.length) {
+      throw new Error("No existing specification!");
+    }
+
     return specifications;
   }
 }

@@ -1,5 +1,7 @@
 import { Request, Response } from "express";
 import { container } from "tsyringe";
+import { AppError } from "../../../../errors/AppError";
+import HttpStatusCode from "../../../../errors/HttpStatusCode";
 import { CreateSpecificationUseCase } from "./CreateSpecificationUseCase";
 
 /** NOTE TSyringe
@@ -11,13 +13,24 @@ import { CreateSpecificationUseCase } from "./CreateSpecificationUseCase";
 class CreateSpecificationController {
 
   async handle(request: Request, response: Response): Promise<Response>{
-    const { name, description } = request.body;
 
-    const createSpecificationUseCase = container.resolve(CreateSpecificationUseCase);
+    try {
+      const { name, description } = request.body;
+  
+      const createSpecificationUseCase = container.resolve(CreateSpecificationUseCase);
+  
+      await createSpecificationUseCase.execute({ name, description });
+  
+      return response.status(201).send("Created");
+    
+    } catch (error) {
 
-    createSpecificationUseCase.execute({ name, description });
+      if(error.message === "Specification Alrseady exists!") {
+        throw new AppError(error.message, HttpStatusCode.CONFLICT);
+      }
 
-    return response.status(201).send("Created");
+      throw new Error(error.message);
+    }
   }
 }
 

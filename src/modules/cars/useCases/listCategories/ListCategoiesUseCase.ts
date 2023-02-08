@@ -20,7 +20,12 @@ class ListCategoriesUseCase {
   ) {}
 
   async execute(): Promise<Category[]> {
-    const categories = this.categoriesRepository.list();
+    const categories = await this.categoriesRepository.list();
+
+    if(!categories.length) {
+      throw new Error("No existing category!");
+    }
+
     return categories;
   }
 }
