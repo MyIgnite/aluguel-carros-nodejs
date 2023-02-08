@@ -3,7 +3,9 @@ import { UsersRepository } from "../../modules/accounts/repositories/implementat
 import { IUsersRepository } from "../../modules/accounts/repositories/IUsersRepository";
 
 import { ICategoriesRepository } from "../../modules/cars/repositories/ICategoriesRepository";
+import { ICsvRepository } from "../../modules/cars/repositories/ICsvRepository";
 import { CategoriesRepository } from "../../modules/cars/repositories/implementations/CategoriesRepository";
+import { CsvRepository } from "../../modules/cars/repositories/implementations/CsvRepository";
 
 import { SpecificationsRepository } from "../../modules/cars/repositories/implementations/SpecificationsRepository";
 import { ISpecificationsRepository } from "../../modules/cars/repositories/ISpecificationsRepository";
@@ -39,4 +41,9 @@ container.registerSingleton<ISpecificationsRepository>(
 container.registerSingleton<IUsersRepository>(
   "UsersRepository",
   UsersRepository
+);
+
+container.registerSingleton<ICsvRepository>(
+  "CsvRepository",
+  CsvRepository
 );
