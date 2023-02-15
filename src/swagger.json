@@ -8,6 +8,20 @@
       "email": "renan@alugcar.com"
     }
   },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  },
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
   "paths": {
     "/categories": {
       "post": {
@@ -66,6 +80,27 @@
         },
         "responses": {
           "201": { "description": "Created" }
+        }
+      }
+    },
+    "/categories/download": {
+      "get": {
+        "tags": ["Categories"],
+        "summary": "Download model CSV",
+        "description": "Download model CSV",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "headers": {
+              "content-disposition": {
+                "type": "CSV",
+                "description": "model_import_category"
+              }
+            }
+          },
+          "500": {
+            "description": "Download was not possible"
+          }
         }
       }
     },
@@ -130,6 +165,15 @@
       }
     },
     "CategoryImport": {
+      "type": "object",
+      "properties": {
+        "file CSV": {
+          "type": "file",
+          "formar": "binary"
+        }
+      }
+    },
+    "CategoryDownload": {
       "type": "object",
       "properties": {
         "file CSV": {
