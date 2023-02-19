@@ -22,7 +22,7 @@ class AuthenticateUserController {
       const token = 
         await authenticateUserUseCase.execute({ email, password});
   
-      return response.json(token)
+      return response.status(HttpStatusCode.CREATED).json(token)
       
     } catch (error) {
         if(error.message === "Email or password incorrect!") {

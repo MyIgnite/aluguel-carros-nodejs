@@ -34,9 +34,8 @@ class ImportCategoryController {
           }, HttpStatusCode.BAD_REQUEST);
         }
 
-        throw new AppError(error.message);
+        throw new AppError(error.message, HttpStatusCode.INTERNAL_SERVER_ERROR);
     }
-
   }
 }
 
