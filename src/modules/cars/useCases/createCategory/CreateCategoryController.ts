@@ -1,6 +1,8 @@
 
 import { Request, Response } from "express";
 import { container } from "tsyringe";
+import { AppError } from "../../../../errors/AppError";
+import HttpStatusCode from "../../../../errors/HttpStatusCode";
 import { CreateCategoryUseCase } from "./CreateCategoryUseCase";
 
 /** NOTE TSyringe
@@ -12,13 +14,24 @@ import { CreateCategoryUseCase } from "./CreateCategoryUseCase";
 class CreateCategoryController {
 
   async handle(request: Request, response: Response): Promise<Response> {
-    const { name, description } = request.body;
 
-    const createCategoryUseCase = container.resolve(CreateCategoryUseCase);
+    try {
+      const { name, description } = request.body;
+  
+      const createCategoryUseCase = container.resolve(CreateCategoryUseCase);
+  
+      await createCategoryUseCase.execute({ name, description});
+  
+      return response.status(201).send("Created");
+      
+    } catch (error) {
+      
+      if(error.message === "Category Already exists!") {
+        throw new AppError(error.message, HttpStatusCode.CONFLICT);
+      }
 
-    await createCategoryUseCase.execute({ name, description});
-
-    return response.status(201).send("Created");
+      throw new Error(error.message);
+    }
   }
 }
 

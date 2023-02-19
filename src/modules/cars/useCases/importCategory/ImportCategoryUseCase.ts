@@ -8,6 +8,11 @@ interface IImportCategory {
   description: string;
 }
 
+interface IResolveImportCategory {
+  type: string;
+  name: string;
+}
+
 /** NOTE TSyringe
  * @injectable() é um decorador que é aplicado a uma classe para 
  * indicar que ela pode ser "injetada". 
@@ -27,9 +32,6 @@ class ImportCategoryUseCase {
 
   loadImportsCategories(file: Express.Multer.File): Promise<IImportCategory[]> {
     return new Promise((resolve, reject) => {
-
-      console.log("file", file)
-
 
       const stream = fs.createReadStream(file.path);
       const categories: IImportCategory[] = [];
@@ -51,19 +53,37 @@ class ImportCategoryUseCase {
       .on("error", (err) => {
         reject(err);
       });
+
     });
   }
 
-  async execute(file: Express.Multer.File): Promise<void> {
-    const categories = await this.loadImportsCategories(file);
+  async execute(file: Express.Multer.File): Promise<IResolveImportCategory[]> {
 
-    categories.map(async ({name, description}) => {
-      const categoryAlreadyExists = !await this.categoriesRepository.findByName(name);
+    const importCategory = await this.loadImportsCategories(file);
 
-      if(categoryAlreadyExists) {
+    const categories = importCategory.filter(({name, description}) => name && description);
+
+    if(!categories.length) {
+      throw new Error("Empty or badly fomatted file!");
+    }
+
+    const receivedCategories = await Promise.all(
+
+      categories.map(async ({ name, description }) => {
+        
+        const categoryExists = await this.categoriesRepository.findByName(name);
+        
+        if (categoryExists) {
+          return { type: 'exists', name };
+        }
+
         await this.categoriesRepository.create({ name, description });
-      }
-    });
+        
+        return { type: 'created', name };
+      })
+    );
+
+    return receivedCategories;
   }
 }
 

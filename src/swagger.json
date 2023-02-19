@@ -5,10 +5,114 @@
     "description": "Documentação da API AlugCar",
     "version": "1.0.0",
     "contact": {
-      "email": "renan@alugcar.com"
+      "email": "renan@teste.com"
     }
   },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  },
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
   "paths": {
+    "/users": {
+      "post": {
+        "tags": ["Users"],
+        "security": [],
+        "summary": "Create a user",
+        "description": "Create a new user",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": { "$ref": "#definitions/User" },
+                "$ref": "#definitions/UserExample"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Created" },
+          "409": { "description": "User Already exists!" }
+        }
+      },
+      "get": {
+        "tags": ["Users"],
+        "summary": "List all users",
+        "description": "List all users",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {          
+                    "$ref": "#definitions/User"
+                  }
+                }
+              }
+            }
+          },
+          "401": { "description": "Unauthorized" }
+        }
+      }
+    },
+    "/sessions": {
+      "post": {
+        "tags": ["Users"],
+        "summary": "Create a sessions",
+        "description": "Create a new temporary sessions",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": { "$ref": "#definitions/Session" },
+                "$ref": "#definitions/SessionExample"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { 
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "token": {
+                      "type": "string"
+                    },
+                    "user": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "email": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "409": { "description": "User Already exists!" },
+          "401": { "description": "Unauthorized" }
+        }
+      }
+    },
     "/categories": {
       "post": {
         "tags": ["Categories"],
@@ -26,7 +130,8 @@
         },
         "responses": {
           "201": { "description": "Created" },
-          "500": { "description": "Category Already exists" }
+          "500": { "description": "Category Already exists!" },
+          "401": { "description": "Unauthorized" }
         }
       },
       "get": {
@@ -46,7 +151,9 @@
                 }
               }
             }
-          }
+          },
+          "204": { "description": "No existing category!" },
+          "401": { "description": "Unauthorized" }
         }
       }
     },
@@ -65,13 +172,77 @@
           }      
         },
         "responses": {
-          "201": { "description": "Created" }
+          "200": { 
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "enum": ["created", "exists"],
+                        "description": "If the category was created, the 'type' property receives 'created', otherwise 'type' receives 'exists'"
+                        
+                      },
+                      "name": {
+                        "type": "string"
+                      }
+                    } 
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Empty or badly fomatted file!"
+                    },
+                    "model": {
+                      "type": "string",
+                      "example": "http://localhost:4444/categories/download"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": { "description": "Unauthorized" }
+        }
+      }
+    },
+    "/categories/download": {
+      "get": {
+        "tags": ["Categories"],
+        "summary": "Download model CSV",
+        "description": "Download model CSV",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "body": {
+              "content-disposition": {
+                "type": "CSV",
+                "description": "model_import_category"
+              }
+            }
+          },
+          "400": { "description": "Empty or badly fomatted file!" },
+          "409": { "description": "Internal server error!" }
         }
       }
     },
     "/specifications": {
       "post": {
-        "tags": ["Spefifications"],
+        "tags": ["Specifications"],
         "summary": "Create a specification",
         "description": "Create a new specification",
         "requestBody": {
@@ -86,11 +257,12 @@
         },
         "responses": {
           "201": { "description": "Created" },
-          "500": { "description": "Specification Already exists" }
+          "500": { "description": "Specification Already exists" },
+          "401": { "description": "Unauthorized" }
         }
       },
       "get": {
-        "tags": ["Spefifications"],
+        "tags": ["Specifications"],
         "summary": "List all spefifications",
         "description": "List all spefifications",
         "responses": {
@@ -106,12 +278,56 @@
                 }
               }
             }
-          }
+          },
+          "204": { "description": "No content" },
+          "401": { "description": "Unauthorized" }
         }
       }
     }
   },
   "definitions": {
+    "User": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "driver_license": {
+          "type": "string"
+        }
+      }
+    },
+    "UserExample": {
+      "example": {
+        "name": "Seu nome",
+        "email": "seu@email.com",
+        "password": "suasenha",
+        "driver_license": "0000-x"
+      }
+    },
+    "Session": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "SessionExample": {
+      "example": {
+        "email": "seu@email.com",
+        "password": "suasenha"
+      }
+    },
     "Categories": {
       "type": "object",
       "properties": {
@@ -130,6 +346,15 @@
       }
     },
     "CategoryImport": {
+      "type": "object",
+      "properties": {
+        "file CSV": {
+          "type": "file",
+          "formar": "binary"
+        }
+      }
+    },
+    "CategoryDownload": {
       "type": "object",
       "properties": {
         "file CSV": {

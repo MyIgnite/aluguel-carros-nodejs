@@ -1,6 +1,7 @@
-import "reflect-metadata";
-
 import express from "express";
+import "express-async-errors";
+
+import "reflect-metadata";
 
 import swaggerUi from "swagger-ui-express";
 
@@ -17,6 +18,7 @@ import "./database";
  * Isso facilita a escalabilidade e manutenção do código.
  */
 
+import { handleErrorHTTP } from "./middlewares/handleErrorHTTP";
 import "./shared/container";
 
 const app = express();
@@ -28,6 +30,8 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggwerFile));
 app.get("/healthcheck", (request, response) => response.status(200).send('OK'));
 
 app.use(router);
+
+app.use(handleErrorHTTP);
 
 app.listen(4444, function() {
   console.log(`
