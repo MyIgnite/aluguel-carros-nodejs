@@ -46,6 +46,23 @@ class UsersRepository implements IUsersRepository {
     const user = await this.repository.findOne(id);
     return user;
   }
+
+  async list(id:string): Promise<User[]> {
+    const user = await this.repository.findOne(id);
+
+    const selectUser = `
+      SELECT 
+        id, 
+        name, 
+        email, 
+        driver_license 
+        ${user.is_admin ? ",is_admin" : ""} 
+      FROM users 
+      ORDER BY name`
+
+    const users = this.repository.query(selectUser);
+    return users;
+  }
 }
 
 export { UsersRepository };
