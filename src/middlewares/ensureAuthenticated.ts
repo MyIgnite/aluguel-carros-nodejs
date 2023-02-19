@@ -10,6 +10,10 @@ interface IPayload {
 export async function ensureAuthenticated(
   request: Request, response: Response, next: NextFunction) {
 
+    if(request.path === "/users" && request.method === "POST") {
+      return next();
+    }
+
     const authHeader = request.headers.authorization;
 
     if(!authHeader) {
