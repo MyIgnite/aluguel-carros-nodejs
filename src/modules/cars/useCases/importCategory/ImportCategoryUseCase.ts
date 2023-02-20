@@ -37,8 +37,8 @@ class ImportCategoryUseCase {
 
         if(Nome && Descrição) {
           return {
-            name: Nome,
-            description: Descrição
+            name: Nome.trim(),
+            description: Descrição.trim()
           }
         } else {
           return null;

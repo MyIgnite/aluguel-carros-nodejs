@@ -22,7 +22,7 @@ const uploadCSV = async (file: Express.Multer.File): IResolveUploadCSV => {
     const parseFile = csvParse({ columns: true });
     
     return stream.pipe(parseFile)
-      .on("data", async (row) => rows.push(row))
+      .on("data", async (row) => {rows.push(row)})
       .on("end", async () => await deleteFile(file.path).then(() => resolve(rows)))
       .on("error", (err) => reject(err))
   })
