@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { container } from "tsyringe";
 import { AppError } from "../../../../errors/AppError";
 import HttpStatusCode from "../../../../errors/HttpStatusCode";
-import { CreateUserUseCase } from "./createUserUsecase";
+import { CreateUserUseCase } from "./CreateUserUsecase";
 
 class CreateUserController {
   async handle(request: Request, response: Response): Promise<Response> {
