@@ -1,16 +1,16 @@
 import { Router } from "express";
 import multer from "multer";
+import { uploadConfig } from "../config/uploadConfig";
 
 import { CreateCategoryController } from "../modules/cars/useCases/createCategory/CreateCategoryController";
-import { DownloadCsvCategoryController } from "../modules/cars/useCases/downloadCsvCategory/downloadCsvCategoryController";
+import { DownloadCsvCategoryController } from "../modules/cars/useCases/downloadCsvCategory/DownloadCsvCategoryController";
 import { ImportCategoryController } from "../modules/cars/useCases/importCategory/ImportCategoryController";
 import { ListCategoriesController } from "../modules/cars/useCases/listCategories/ListCategoriesController";
 
 const categoriesRoutes = Router();
 
-const upload = multer({
-  dest: "./temp"
-})
+const uploaCSV = multer(uploadConfig("./tmp"));
+
 
 /** NOTE TSyringe
  * 
@@ -27,8 +27,7 @@ const downloadCsvCategoryController = new DownloadCsvCategoryController();
 
 categoriesRoutes.post("/", createCategoryController.handle);
 categoriesRoutes.get("/", listCategoriesController.handle);
-categoriesRoutes.post("/import", upload.single("file"), importCategoryController.handle)
+categoriesRoutes.post("/import", uploaCSV.single("file"), importCategoryController.handle)
 categoriesRoutes.get("/download", downloadCsvCategoryController.handle);
-
 
 export { categoriesRoutes };
