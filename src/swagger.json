@@ -351,15 +351,6 @@
         "description": "Carro com porta mala grande"
       }
     },
-    "CategoryImport": {
-      "type": "object",
-      "properties": {
-        "file CSV": {
-          "type": "file",
-          "formar": "binary"
-        }
-      }
-    },
     "CategoryDownload": {
       "type": "object",
       "properties": {
