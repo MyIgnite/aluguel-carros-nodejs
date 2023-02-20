@@ -166,7 +166,13 @@
           "content": {
             "multipart/form-data": {
               "schema": {
-                "$ref": "#definitions/CategoryImport"
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "file",
+                    "formar": "binary"
+                  }
+                }
               }
             }
           }      
