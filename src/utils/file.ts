@@ -1,17 +1,17 @@
 import { parse as csvParse } from "csv-parse";
 import fs from "fs";
-import { AppError } from "../errors/AppError";
-import HttpStatusCode from "../errors/HttpStatusCode";
 
 type IResolveUploadCSV = Promise<Record<string, string>[]>
 
 const deleteFile = async (filename: string) => {
+
   try {
     await fs.promises.stat(filename);
-    await fs.promises.unlink(filename);
   } catch (error) {
-    throw new AppError(error.message, HttpStatusCode.CONFLICT)
+    return;
   }
+  
+  await fs.promises.unlink(filename);
 }
 
 const uploadCSV = async (file: Express.Multer.File): IResolveUploadCSV => {
