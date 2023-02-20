@@ -7,29 +7,47 @@ interface IPayload {
   sub: string;
 }
 
-export async function ensureAuthenticated(
-  request: Request, response: Response, next: NextFunction) {
+async function releaseRoute(request: Request, path: string, method: string) {
+  if(request.path === path && request.method === method) {
+    return true
+  }
+}
 
-    if(request.path === "/users" && request.method === "POST") {
-      return next();
-    }
-
-    const authHeader = request.headers.authorization;
+async function captureToken(request: Request) {
+  const authHeader = request.headers.authorization;
 
     if(!authHeader) {
       throw new AppError("Token missing", 401);
     }
 
     const [, token] = authHeader.split(" ");
+    return token
+}
 
+export async function ensureAuthenticated(
+  request: Request, response: Response, next: NextFunction) {
+       
     try {
+
+      if(await releaseRoute(request, "/users", "POST")) {
+        return next()
+      }
+  
+      const token = await captureToken(request);
+
+      // REVIEW Salvar token na env 
       const {sub: user_id} = verify(token, "f580455f6507681630a262d058067290") as IPayload;
       
+      // REVIEW Transformar em injeção de dependência
       const usersRepository = new UsersRepository();
       const user = await usersRepository.findById(user_id);
 
       if(!user) {
         throw new AppError("User does not exists!", 401);
+      }
+
+      request.user = {
+        id: user_id
       }
       
       next();
