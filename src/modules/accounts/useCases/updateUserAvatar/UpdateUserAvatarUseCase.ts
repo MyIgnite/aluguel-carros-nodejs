@@ -7,6 +7,8 @@ interface IRequest {
   avatar_file: string;
 }
 
+// REVIEW Limitar tipos de arquivos de imagens
+
 @injectable()
 class UpdateUserAvatarUseCase {
 
@@ -21,6 +23,8 @@ class UpdateUserAvatarUseCase {
     
     if(user.avatar) {
       await deleteFile(`./tmp/avatar/${user.avatar}`);
+    } else {
+      throw new Error("User does not exists!")
     }
 
     user.avatar = avatar_file;

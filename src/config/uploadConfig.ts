@@ -2,6 +2,8 @@ import crypto from "crypto";
 import multer from "multer";
 import { resolve } from "path";
 
+// REVIEW Limitar tamanho do arquivo
+
 function uploadConfig(folder: string) {
   return {
     storage: multer.diskStorage({
