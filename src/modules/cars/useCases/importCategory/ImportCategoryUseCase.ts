@@ -1,11 +1,15 @@
-import { parse as csvParse } from "csv-parse";
-import fs from "fs";
 import { inject, injectable } from "tsyringe";
+import { uploadCSV } from "../../../../utils/file";
 import { ICategoriesRepository } from "../../repositories/ICategoriesRepository";
 
 interface IImportCategory {
   name: string;
   description: string;
+}
+
+interface IResolveImportCategory {
+  type: string;
+  name: string;
 }
 
 /** NOTE TSyringe
@@ -25,45 +29,63 @@ class ImportCategoryUseCase {
     private categoriesRepository: ICategoriesRepository
   ) {}
 
-  loadImportsCategories(file: Express.Multer.File): Promise<IImportCategory[]> {
-    return new Promise((resolve, reject) => {
+  async loadImportsCategories(file: Express.Multer.File) {
+    const importCategory = await uploadCSV(file);
+    
+    const categories = await Promise.all(
+      importCategory.map( async ({Nome, Descrição}) => {
 
-      console.log("file", file)
+        if(Nome && Descrição) {
+          return {
+            name: Nome.trim(),
+            description: Descrição.trim()
+          }
+        } else {
+          return null;
+        }
 
-
-      const stream = fs.createReadStream(file.path);
-      const categories: IImportCategory[] = [];
-
-      const parseFile = csvParse();
-
-      stream.pipe(parseFile);
-
-      parseFile.on("data", async (line) => {
-        const [name, description] = line;
-        const category = { name, description };
-
-        categories.push(category);
       })
-      .on("end", () => {
-        fs.promises.unlink(file.path);
-        resolve(categories);
-      })
-      .on("error", (err) => {
-        reject(err);
-      });
-    });
+    )
+
+    return categories;
   }
 
-  async execute(file: Express.Multer.File): Promise<void> {
-    const categories = await this.loadImportsCategories(file);
+  async filteredCategories(categories: IImportCategory[]) {
+    return categories.filter(category => category !== null);
+  }
 
-    categories.map(async ({name, description}) => {
-      const categoryAlreadyExists = !await this.categoriesRepository.findByName(name);
+  async createCategories(categories: IImportCategory[]) {
+    const processedCategories = await Promise.all(
 
-      if(categoryAlreadyExists) {
+      categories.map(async ({ name, description }) => {
+        
+        const categoryExists = await this.categoriesRepository.findByName(name);
+        
+        if (categoryExists) {
+          return { type: 'exists', name };
+        }
+
         await this.categoriesRepository.create({ name, description });
-      }
-    });
+        
+        return { type: 'created', name };
+      })
+    );
+
+    return processedCategories;
+  }
+
+  async execute(file: Express.Multer.File): Promise<IResolveImportCategory[]> {
+
+    const importedCategories = await this.loadImportsCategories(file);
+    const categories = await this.filteredCategories(importedCategories);
+
+    if(!categories.length) {
+      throw new Error("Empty or badly fomatted file!");
+    }
+
+    const processedCategories = await this.createCategories(categories);
+
+    return processedCategories;
   }
 }
 

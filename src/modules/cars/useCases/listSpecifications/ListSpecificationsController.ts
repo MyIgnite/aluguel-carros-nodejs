@@ -1,5 +1,7 @@
 import { Request, Response } from "express";
 import { container } from "tsyringe";
+import { AppError } from "../../../../errors/AppError";
+import HttpStatusCode from "../../../../errors/HttpStatusCode";
 import { ListSpecificationsUseCase } from "./ListSpecificationsUseCase";
 
 /** NOTE TSyringe
@@ -12,11 +14,21 @@ class ListSpecificationController {
 
   async handle(request: Request, response: Response): Promise<Response> {
 
-    const listSpecificationUseCase = container.resolve(ListSpecificationsUseCase)
+    try {
+      const listSpecificationUseCase = container.resolve(ListSpecificationsUseCase)
+  
+      const specifications = await listSpecificationUseCase.execute();
+      
+      return response.status(200).json(specifications);
+      
+    } catch (error) {
+      
+      if(error.message === "No existing specification!") {
+        throw new AppError(error.message, HttpStatusCode.NO_CONTENT);
+      }
 
-    const specifications = await listSpecificationUseCase.execute();
-    
-    return response.status(200).json(specifications);
+      throw new Error(error.message);   
+    }
   }
 }
 

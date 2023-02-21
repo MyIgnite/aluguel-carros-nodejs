@@ -1,5 +1,7 @@
 import { Request, Response } from "express";
 import { container } from "tsyringe";
+import { AppError } from "../../../../errors/AppError";
+import HttpStatusCode from "../../../../errors/HttpStatusCode";
 import { ListCategoriesUseCase } from "./ListCategoiesUseCase";
 
 /** NOTE TSyringe
@@ -12,10 +14,21 @@ class ListCategoriesController {
 
   async handle(request: Request, response: Response): Promise<Response> {
 
-    const listCategoriesUseCase = container.resolve(ListCategoriesUseCase);
+    try {
+      const listCategoriesUseCase = container.resolve(ListCategoriesUseCase);
+  
+      const categories = await listCategoriesUseCase.execute();
+  
+      return response.status(HttpStatusCode.OK).json(categories);
 
-    const categories = await listCategoriesUseCase.execute();
-    return response.json(categories);
+    } catch (error) {
+      
+      if(error.message === "No existing category!") {
+        throw new AppError(error.message, HttpStatusCode.NO_CONTENT);
+      }
+
+      throw new Error(error.message);
+    }
   }
 }
 

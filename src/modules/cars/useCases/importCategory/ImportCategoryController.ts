@@ -1,5 +1,7 @@
 import { Request, Response } from "express";
 import { container } from "tsyringe";
+import { AppError } from "../../../../errors/AppError";
+import HttpStatusCode from "../../../../errors/HttpStatusCode";
 import { ImportCategoryUseCase } from "./ImportCategoryUseCase";
 
 /** NOTE TSyringe
@@ -12,15 +14,28 @@ class ImportCategoryController {
 
   async handle(request: Request, response: Response): Promise<Response> {
 
-    const { file } = request;
+    try {
+      const { file } = request;
+  
+      const importCategoryUseCase = container.resolve(ImportCategoryUseCase);
+      
+      const importResult = await importCategoryUseCase.execute(file);
+  
+      return response.status(HttpStatusCode.OK).json(importResult);
+      
+    } catch (error) {
+        if(error.message === "Empty or badly fomatted file!") {
 
-    console.log('File controller', file)
+          // REVIEW  Criar URI dentro da .env
+          
+          throw new AppError({
+            message: error.message,
+            model: "http://localhost:4444/categories/download"
+          }, HttpStatusCode.BAD_REQUEST);
+        }
 
-    const importCategoryUseCase = container.resolve(ImportCategoryUseCase);
-    
-    await importCategoryUseCase.execute(file);
-
-    return response.status(201).send("Created");
+        throw new AppError(error.message, HttpStatusCode.INTERNAL_SERVER_ERROR);
+    }
   }
 }
 
