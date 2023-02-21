@@ -14,12 +14,20 @@ class UpdateUserAvatarController {
       const avatar_file = request.file.filename;
 
       const updateUserAvatarUseCase = container.resolve(UpdateUserAvatarUseCase);
-      await updateUserAvatarUseCase.execute({ user_id: id, avatar_file})
+      await updateUserAvatarUseCase.execute({ user_id: id, avatar_file});
 
       return response.status(HttpStatusCode.NO_CONTENT).send();
 
     } catch (error) {
-        throw new AppError(error.message);
+
+      if(error.message === "User does not exists!") {
+        throw new AppError("User does not exists!",  HttpStatusCode.NO_CONTENT);
+      }
+
+      throw new AppError({
+        message: "Invalid token!"
+      }, HttpStatusCode.UNAUTHORIZED);
+
     }
   }
 }
