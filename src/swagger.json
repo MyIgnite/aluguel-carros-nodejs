@@ -66,6 +66,53 @@
         }
       }
     },
+    "/users/avatar": {
+      "patch": {
+        "tags": ["Users"],
+        "summary": "Update a user",
+        "description": "Update an existing user",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "avatar": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                },
+                "required": ["avatar"]
+              }
+            }
+          }      
+        },
+        "responses": {
+          "204": {
+            "description": "User updated success!"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Invalid token!"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User does not exists!"
+          }
+        }
+      }
+    },
     "/sessions": {
       "post": {
         "tags": ["Users"],
@@ -166,7 +213,13 @@
           "content": {
             "multipart/form-data": {
               "schema": {
-                "$ref": "#definitions/CategoryImport"
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "file",
+                    "formar": "binary"
+                  }
+                }
               }
             }
           }      
@@ -343,15 +396,6 @@
       "example": {
         "name": "SEDAN",
         "description": "Carro com porta mala grande"
-      }
-    },
-    "CategoryImport": {
-      "type": "object",
-      "properties": {
-        "file CSV": {
-          "type": "file",
-          "formar": "binary"
-        }
       }
     },
     "CategoryDownload": {

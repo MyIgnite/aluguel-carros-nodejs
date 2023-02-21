@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { container } from "tsyringe";
 import { AppError } from "../../../../errors/AppError";
-import { DownloadCsvCategoryUseCase } from "./downloadCsvCategoryUseCase";
+import { DownloadCsvCategoryUseCase } from "./DownloadCsvCategoryUseCase";
 
 /** NOTE TSyringe
  * 
