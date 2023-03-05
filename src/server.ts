@@ -18,8 +18,8 @@ import "./database";
  * Isso facilita a escalabilidade e manutenção do código.
  */
 
+import "@shared/container";
 import { handleErrorHTTP } from "./middlewares/handleErrorHTTP";
-import "./shared/container";
 
 const app = express();
 

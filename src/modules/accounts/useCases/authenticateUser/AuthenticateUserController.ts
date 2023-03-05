@@ -1,7 +1,7 @@
+import { AppError } from "@errors/AppError";
+import HttpStatusCode from "@errors/HttpStatusCode";
 import { Request, Response } from "express";
 import { container } from "tsyringe";
-import { AppError } from "../../../../errors/AppError";
-import HttpStatusCode from "../../../../errors/HttpStatusCode";
 import { AuthenticateUserUseCase } from "./AuthenticateUserUseCase";
 
 /** NOTE TSyringe

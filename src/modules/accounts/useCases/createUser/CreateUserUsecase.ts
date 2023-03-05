@@ -1,7 +1,7 @@
+import { IUsersRepositoryDTO } from "@modules/accounts/dtos/UsersRepositoryDTO";
+import { IUsersRepository } from "@modules/accounts/repositories/IUsersRepository";
 import { hash } from "bcryptjs";
 import { inject, injectable } from "tsyringe";
-import { IUsersRepositoryDTO } from "../../dtos/UsersRepositoryDTO";
-import { IUsersRepository } from "../../repositories/IUsersRepository";
 
 @injectable()
 class CreateUserUseCase {

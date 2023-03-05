@@ -1,6 +1,6 @@
+import { ICategoriesRepository } from "@modules/cars/repositories/ICategoriesRepository";
+import { uploadCSV } from "@utils/file";
 import { inject, injectable } from "tsyringe";
-import { uploadCSV } from "../../../../utils/file";
-import { ICategoriesRepository } from "../../repositories/ICategoriesRepository";
 
 interface IImportCategory {
   name: string;

@@ -1,6 +1,6 @@
+import { ICsvRepository } from "@modules/cars/repositories/ICsvRepository";
 import fs from "fs";
 import { inject, injectable } from "tsyringe";
-import { ICsvRepository } from "../../repositories/ICsvRepository";
 
 /** NOTE TSyringe
  * @injectable() é um decorador que é aplicado a uma classe para 
