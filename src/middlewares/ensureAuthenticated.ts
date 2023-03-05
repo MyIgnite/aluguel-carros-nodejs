@@ -18,7 +18,7 @@ async function captureToken(request: Request) {
   const authHeader = request.headers.authorization;
 
     if(!authHeader) {
-      throw new AppError("Token missing", 401);
+      throw new AppError("Token missing", HttpStatusCode.UNAUTHORIZED);
     }
 
     const [, token] = authHeader.split(" ");
@@ -44,7 +44,7 @@ export async function ensureAuthenticated(
       const user = await usersRepository.findById(user_id);
 
       if(!user) {
-        throw new AppError("User does not exists!", HttpStatusCode.NO_CONTENT);
+        throw new AppError("User does not exists!", HttpStatusCode.UNAUTHORIZED);
       }
 
       request.user = {
