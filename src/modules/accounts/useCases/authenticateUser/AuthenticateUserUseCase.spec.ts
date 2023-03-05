@@ -1,6 +1,7 @@
-import { IUsersRepositoryDTO } from "../../dtos/UsersRepositoryDTO";
-import { UsersRepositoryInMemory } from "../../repositories/in-memory/UsersRepositoryInMemory";
-import { CreateUserUseCase } from "../createUser/CreateUserUsecase";
+
+import { IUsersRepositoryDTO } from "@modules/accounts/dtos/UsersRepositoryDTO";
+import { UsersRepositoryInMemory } from "@modules/accounts/repositories/in-memory/UsersRepositoryInMemory";
+import { CreateUserUseCase } from "@modules/accounts/useCases/createUser/CreateUserUsecase";
 import { AuthenticateUserUseCase } from "./AuthenticateUserUseCase";
 
 let usersRepositoryInMemory: UsersRepositoryInMemory;
