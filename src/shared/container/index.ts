@@ -1,4 +1,4 @@
-import { UsersRepository } from "@modules/accounts/repositories/implementations/UsersRepository";
+
 import { IUsersRepository } from "@modules/accounts/repositories/IUsersRepository";
 import { container } from "tsyringe";
 
@@ -7,6 +7,7 @@ import { ICsvRepository } from "@modules/cars/repositories/ICsvRepository";
 import { CategoriesRepository } from "@modules/cars/repositories/implementations/CategoriesRepository";
 import { CsvRepository } from "@modules/cars/repositories/implementations/CsvRepository";
 
+import { UsersRepository } from "@modules/accounts/infra/typeorm/repositories/UsersRepository";
 import { SpecificationsRepository } from "@modules/cars/repositories/implementations/SpecificationsRepository";
 import { ISpecificationsRepository } from "@modules/cars/repositories/ISpecificationsRepository";
 

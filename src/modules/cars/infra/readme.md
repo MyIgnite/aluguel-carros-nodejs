@@ -1,0 +1,3 @@
+"Em um projeto, a pasta 'infra' tem a função de agrupar recursos e componentes externos que oferecem suporte a outros módulos. Essa camada permite isolar tudo o que não faz parte da regra de negócio (camada externa), facilitando a organização do projeto.
+
+No contexto atual, as entidades e repositórios estão acopladas ao TypeORM, mas se em algum momento houver a necessidade de alterar o ORM utilizado, basta criar outra referência dentro da pasta e implementa-la.

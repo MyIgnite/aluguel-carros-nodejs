@@ -1,8 +1,8 @@
+import { UsersRepositoryInMemory } from "@modules/accounts/repositories/in-memory/UsersRepositoryInMemory";
+import { AppError } from "@shared/errors/AppError";
+import HttpStatusCode from "@shared/errors/HttpStatusCode";
 import { NextFunction, Request, Response } from "express";
 import { verify } from "jsonwebtoken";
-import { AppError } from "../errors/AppError";
-import HttpStatusCode from "../errors/HttpStatusCode";
-import { UsersRepository } from "../modules/accounts/repositories/implementations/UsersRepository";
 
 interface IPayload {
   sub: string;
@@ -40,7 +40,7 @@ export async function ensureAuthenticated(
       const {sub: user_id} = verify(token, "f580455f6507681630a262d058067290") as IPayload;
       
       // REVIEW Transformar em injeção de dependência
-      const usersRepository = new UsersRepository();
+      const usersRepository = new UsersRepositoryInMemory();
       const user = await usersRepository.findById(user_id);
 
       if(!user) {

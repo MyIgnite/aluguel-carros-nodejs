@@ -1,5 +1,5 @@
-import { AppError } from "@errors/AppError";
-import HttpStatusCode from "@errors/HttpStatusCode";
+import { AppError } from "@shared/errors/AppError";
+import HttpStatusCode from "@shared/errors/HttpStatusCode";
 import { Request, Response } from "express";
 import { container } from "tsyringe";
 import { ListCategoriesUseCase } from "./ListCategoiesUseCase";

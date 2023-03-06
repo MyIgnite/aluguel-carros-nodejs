@@ -1,0 +1,1 @@
+Camada usada para armazenar arquivos de definição de tipos TypeScript personalizados para o aplicativo. Esses arquivos permitem que o TypeScript forneça verificação de tipo para bibliotecas ou módulos JavaScript que não possuem definições de tipo existentes.

@@ -1,4 +1,4 @@
-import { AppError } from "@errors/AppError";
+import { AppError } from "@shared/errors/AppError";
 import { Request, Response } from "express";
 import { container } from "tsyringe";
 import { DownloadCsvCategoryUseCase } from "./DownloadCsvCategoryUseCase";

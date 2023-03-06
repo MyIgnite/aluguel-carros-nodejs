@@ -5,11 +5,11 @@ import "reflect-metadata";
 
 import swaggerUi from "swagger-ui-express";
 
-import swaggwerFile from "./swagger.json";
+import swaggwerFile from "../../../swagger.json";
 
 import { router } from "./routes";
 
-import "./database";
+import "../typeorm";
 
 /** NOTE TSyringe
  * 

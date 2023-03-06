@@ -1,0 +1,1 @@
+Esta camada contém arquivos que estão disponíveis para download pelo cliente.

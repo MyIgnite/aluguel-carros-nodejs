@@ -1,7 +1,7 @@
 import { getRepository, Repository } from "typeorm";
-import { IUsersRepositoryDTO } from "../../dtos/UsersRepositoryDTO";
-import { User } from "../../entities/User";
-import { IUsersRepository } from "../IUsersRepository";
+import { IUsersRepositoryDTO } from "../../../dtos/UsersRepositoryDTO";
+import { IUsersRepository } from "../../../repositories/IUsersRepository";
+import { User } from "../entities/User";
 
 /** NOTE Typeorm
  * Uma classe implementa uma interface e fornecer uma camada de abstração para 

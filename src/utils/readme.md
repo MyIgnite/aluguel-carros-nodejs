@@ -1,0 +1,1 @@
+A camada em questão é usada para armazenar funções utilitárias que podem ser usadas em diferentes partes do projeto, mas que não são grandes o suficiente para justificar sua própria pasta separada. Essas funções são geralmente pequenas e específicas.

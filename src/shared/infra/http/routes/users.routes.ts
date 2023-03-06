@@ -1,9 +1,9 @@
+import { uploadConfig } from "@config/uploadConfig";
+import { CreateUserController } from "@modules/accounts/useCases/createUser/CreateUserController";
+import { ListUserController } from "@modules/accounts/useCases/listUser/ListUserController";
+import { UpdateUserAvatarController } from "@modules/accounts/useCases/updateUserAvatar/UpdateUserAvatarController";
 import { Router } from "express";
 import multer from "multer";
-import { uploadConfig } from "../config/uploadConfig";
-import { CreateUserController } from "../modules/accounts/useCases/createUser/CreateUserController";
-import { ListUserController } from "../modules/accounts/useCases/listUser/ListUserController";
-import { UpdateUserAvatarController } from "../modules/accounts/useCases/updateUserAvatar/UpdateUserAvatarController";
 
 const usersRoutes = Router();
 
