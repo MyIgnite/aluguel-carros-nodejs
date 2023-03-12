@@ -19,14 +19,12 @@ São as normas e procedimentos que governam a forma como a empresa funciona e qu
 **RF**
 
 - Deve ser possível cadastrar um novo carro.
-- Deve ser possível listar todas as categorias.
 
 **RN**
 
 - Não dever possível cadastrar um carro com a placa já existente.
-- Não deve ser possível alterar a placa de um carro já cadastrado.
 - O carro deve ser cadastrado, por padrão, com diponibilidade.
-- O usuário deve ter perfil administrador para incluir um novo cadastro.
+- (criar teste na criação do controller) O usuário deve ter perfil administrador para incluir um novo cadastro.
 
 ## Listagem de carros
 
