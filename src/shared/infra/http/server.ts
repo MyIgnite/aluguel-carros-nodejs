@@ -9,7 +9,7 @@ import swaggwerFile from "../../../swagger.json";
 
 import { router } from "./routes";
 
-import "../typeorm";
+import createConnection from "../typeorm";
 
 /** NOTE TSyringe
  * 
@@ -21,6 +21,7 @@ import "../typeorm";
 import "@shared/container";
 import { handleErrorHTTP } from "./middlewares/handleErrorHTTP";
 
+createConnection();
 const app = express();
 
 app.use(express.json());
