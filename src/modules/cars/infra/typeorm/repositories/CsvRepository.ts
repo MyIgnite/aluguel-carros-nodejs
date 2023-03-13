@@ -1,4 +1,4 @@
-import { ICsvRepository } from "../ICsvRepository";
+import { ICsvRepository } from "../../../repositories/ICsvRepository";
 
 class CsvRepository implements ICsvRepository {
   async create(): Promise<string> {

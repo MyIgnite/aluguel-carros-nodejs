@@ -1,6 +1,6 @@
 import { getRepository, Repository } from "typeorm";
-import { Category } from "../../infra/typeorm/entities/Category";
-import { ICategoriesRepository, ICreateCategoryDTO } from "../ICategoriesRepository";
+import { Category } from "../entities/Category";
+import { ICategoriesRepository, ICreateCategoryDTO } from "../../../repositories/ICategoriesRepository";
 
 /** NOTE Typeorm
  * Uma classe implementa uma interface e fornecer uma camada de abstração para 

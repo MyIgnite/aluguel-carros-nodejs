@@ -1,4 +1,4 @@
-import { UsersRepositoryInMemory } from "@modules/accounts/repositories/in-memory/UsersRepositoryInMemory";
+import { UsersRepository } from "@modules/accounts/infra/typeorm/repositories/UsersRepository";
 import { AppError } from "@shared/errors/AppError";
 import HttpStatusCode from "@shared/errors/HttpStatusCode";
 import { NextFunction, Request, Response } from "express";
@@ -40,8 +40,10 @@ export async function ensureAuthenticated(
       const {sub: user_id} = verify(token, "f580455f6507681630a262d058067290") as IPayload;
       
       // REVIEW Transformar em injeção de dependência
-      const usersRepository = new UsersRepositoryInMemory();
+      const usersRepository = new UsersRepository();
       const user = await usersRepository.findById(user_id);
+
+      console.log("User", user);
 
       if(!user) {
         throw new AppError("User does not exists!", HttpStatusCode.UNAUTHORIZED);
@@ -54,6 +56,7 @@ export async function ensureAuthenticated(
       next();
       
     } catch (error) {
+      console.log("error", error);
       throw new AppError("Invalid token!", HttpStatusCode.UNAUTHORIZED);
     }
 }

@@ -1,15 +1,20 @@
 
-import { IUsersRepository } from "@modules/accounts/repositories/IUsersRepository";
 import { container } from "tsyringe";
 
-import { ICategoriesRepository } from "@modules/cars/repositories/ICategoriesRepository";
-import { ICsvRepository } from "@modules/cars/repositories/ICsvRepository";
-import { CategoriesRepository } from "@modules/cars/repositories/implementations/CategoriesRepository";
-import { CsvRepository } from "@modules/cars/repositories/implementations/CsvRepository";
-
 import { UsersRepository } from "@modules/accounts/infra/typeorm/repositories/UsersRepository";
-import { SpecificationsRepository } from "@modules/cars/repositories/implementations/SpecificationsRepository";
+import { IUsersRepository } from "@modules/accounts/repositories/IUsersRepository";
+
+import { CategoriesRepository } from "@modules/cars/infra/typeorm/repositories/CategoriesRepository";
+import { ICategoriesRepository } from "@modules/cars/repositories/ICategoriesRepository";
+
+import { SpecificationsRepository } from "@modules/cars/infra/typeorm/repositories/SpecificationsRepository";
 import { ISpecificationsRepository } from "@modules/cars/repositories/ISpecificationsRepository";
+
+import { CsvRepository } from "@modules/cars/infra/typeorm/repositories/CsvRepository";
+import { ICsvRepository } from "@modules/cars/repositories/ICsvRepository";
+
+import { CarsRepository } from "@modules/cars/infra/typeorm/repositories/CarsRepository";
+import { IcarsRepository } from "@modules/cars/repositories/ICarsRepository";
 
 /** NOTE TSyringe registerSingleton
  * 
@@ -47,4 +52,9 @@ container.registerSingleton<IUsersRepository>(
 container.registerSingleton<ICsvRepository>(
   "CsvRepository",
   CsvRepository
+);
+
+container.registerSingleton<IcarsRepository>(
+  "CarsRepository",
+  CarsRepository
 );

@@ -1,6 +1,6 @@
 import { getRepository, Repository } from "typeorm";
-import { Specification } from "../../infra/typeorm/entities/Specification";
-import { ICreateSpecificationDTO, ISpecificationsRepository } from "../ISpecificationsRepository";
+import { Specification } from "../entities/Specification";
+import { ICreateSpecificationDTO, ISpecificationsRepository } from "../../../repositories/ISpecificationsRepository";
 
 /** NOTE Typeorm
  * Uma classe implementa uma interface e fornecer uma camada de abstração para 
