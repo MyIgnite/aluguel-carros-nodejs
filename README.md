@@ -79,3 +79,13 @@ São as normas e procedimentos que governam a forma como a empresa funciona e qu
 - O aluguel deve ter duração minima de 24 horas.
 - Não deve ser possível cadastrar um novo aluguel caso já exista um aberto para o mesmo usuário.
 - Não deve ser possível cadastrar um novo aluguel caso já exista um aberto para o mesmo carro.
+
+# Observações
+
+- Ao executar `yarn "seed:admin"` o usuário é cadastrado, porém, um erro é lançado. O banco de dados foi configurado para ter acesso em diferentes ambientes e mesmo assim o erro persiste.
+
+```
+Error: getaddrinfo ENOTFOUND database_acar
+    at GetAddrInfoReqWrap.onlookup [as oncomplete] (node:dns:107:26)
+[ERROR] 16:07:24 Error: getaddrinfo ENOTFOUND database_acar
+```
