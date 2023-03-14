@@ -18,36 +18,36 @@ São as normas e procedimentos que governam a forma como a empresa funciona e qu
 
 **RF**
 
-- Deve ser possível cadastrar um novo usuário.
+- [x] Deve ser possível cadastrar um novo usuário.
 
 **RN**
 
-- Não dever possível cadastrar um usuário já existente.
-- O usuário deve ser cadastrado, por padrão, admin = false.
+- [x] Não dever possível cadastrar um usuário já existente.
+- [x] O usuário deve ser cadastrado, por padrão, sem perfil de administrador
 
 ## Listagem de usuários
 
 **RF**
 
-- Deve ser possível listar os usuários.
+- [x] Deve ser possível listar os usuários.
 
 **RN**
 
-- O usuário deve estar logado
-- Somente perfil admin exibe se usuário é admin
-- Nenhum perfil exibe o password
+- [x] O usuário deve estar logado
+- [x] Somente perfil administrador exibe se usuário é administrador
+- [x] Nenhum perfil exibe o password
 
 ## Cadastro de carro
 
 **RF**
 
-- Deve ser possível cadastrar um novo carro.
+- [x] Deve ser possível cadastrar um novo carro.
 
 **RN**
 
-- Não dever possível cadastrar um carro com a placa já existente.
-- O carro deve ser cadastrado, por padrão, com diponibilidade.
-- O usuário deve ter perfil administrador para incluir um novo cadastro.
+- [x] Não dever possível cadastrar um carro com a placa já existente.
+- [x] O carro deve ser cadastrado, por padrão, com diponibilidade.
+- [x] O usuário deve ter perfil administrador para incluir um novo cadastro.
 
 ## Listagem de carros
 
