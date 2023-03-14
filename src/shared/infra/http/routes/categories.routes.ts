@@ -7,6 +7,8 @@ import { ListCategoriesController } from "@modules/cars/useCases/listCategories/
 
 import { Router } from "express";
 import multer from "multer";
+import { ensureAdmin } from "../middlewares/ensureAdmin";
+import { ensureAuthenticated } from "../middlewares/ensureAuthenticated";
 
 const categoriesRoutes = Router();
 
@@ -26,9 +28,27 @@ const importCategoryController = new ImportCategoryController();
 const listCategoriesController = new ListCategoriesController();
 const downloadCsvCategoryController = new DownloadCsvCategoryController();
 
-categoriesRoutes.post("/", createCategoryController.handle);
+categoriesRoutes.post(
+  "/", 
+  ensureAuthenticated,
+  ensureAdmin,
+  createCategoryController.handle
+);
+
 categoriesRoutes.get("/", listCategoriesController.handle);
-categoriesRoutes.post("/import", uploaCSV.single("file"), importCategoryController.handle)
-categoriesRoutes.get("/download", downloadCsvCategoryController.handle);
+
+categoriesRoutes.post(
+  "/import",
+  ensureAuthenticated,
+  ensureAdmin,
+  uploaCSV.single("file"),
+  importCategoryController.handle
+);
+
+categoriesRoutes.get(
+  "/download",
+  ensureAuthenticated,
+  downloadCsvCategoryController.handle
+);
 
 export { categoriesRoutes };

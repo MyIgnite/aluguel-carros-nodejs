@@ -8,12 +8,6 @@ interface IPayload {
   sub: string;
 }
 
-async function releaseRoute(request: Request, path: string, method: string) {
-  if(request.path === path && request.method === method) {
-    return true
-  }
-}
-
 async function captureToken(request: Request) {
   const authHeader = request.headers.authorization;
 
@@ -29,10 +23,6 @@ export async function ensureAuthenticated(
   request: Request, response: Response, next: NextFunction) {
        
     try {
-
-      if(await releaseRoute(request, "/users", "POST")) {
-        return next()
-      }
   
       const token = await captureToken(request);
 

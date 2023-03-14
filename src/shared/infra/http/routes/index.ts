@@ -1,5 +1,4 @@
 import { NextFunction, Request, Response, Router } from "express";
-import { ensureAuthenticated } from "../middlewares/ensureAuthenticated";
 import { authenticateRoutes } from "./authenticate.routes";
 
 import { carsRoutes } from "./cars.routes";
@@ -15,7 +14,6 @@ function teste(request: Request, response: Response, next: NextFunction) {
 const router = Router();
 
 router.use(authenticateRoutes);
-router.use(ensureAuthenticated);
 
 router.use("/categories", categoriesRoutes);
 router.use("/specifications", specificationsRoutes);

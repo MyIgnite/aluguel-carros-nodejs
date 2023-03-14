@@ -4,6 +4,7 @@ import { ListUserController } from "@modules/accounts/useCases/listUser/ListUser
 import { UpdateUserAvatarController } from "@modules/accounts/useCases/updateUserAvatar/UpdateUserAvatarController";
 import { Router } from "express";
 import multer from "multer";
+import { ensureAuthenticated } from "../middlewares/ensureAuthenticated";
 
 const usersRoutes = Router();
 
@@ -14,7 +15,18 @@ const listUserController = new ListUserController();
 const updateUserAvatarController = new UpdateUserAvatarController();
 
 usersRoutes.post("/", createUserController.handle);
-usersRoutes.get("/", listUserController.handle);
-usersRoutes.patch("/avatar",uploadAvatar.single("avatar"), updateUserAvatarController.handle);
+
+usersRoutes.get(
+  "/",
+  ensureAuthenticated,
+  listUserController.handle
+);
+
+usersRoutes.patch(
+  "/avatar",
+  ensureAuthenticated,
+  uploadAvatar.single("avatar"),
+  updateUserAvatarController.handle
+);
 
 export { usersRoutes };
