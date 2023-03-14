@@ -10,9 +10,10 @@ class ListUserController {
   async handle(request: Request, response: Response): Promise<Response> {
 
     try {
+      const { id } = request.user;
       const listUserUseCase = container.resolve(ListUserUseCase);
 
-      const users = await listUserUseCase.execute();
+      const users = await listUserUseCase.execute(id);
 
       return response.status(200).json(users);
 

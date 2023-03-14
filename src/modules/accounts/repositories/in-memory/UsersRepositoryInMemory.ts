@@ -10,7 +10,7 @@ class UsersRepositoryInMemory implements IUsersRepository {
     email, 
     password, 
     driver_license 
-  }: IUsersRepositoryDTO): Promise<void> {
+  }: IUsersRepositoryDTO): Promise<User> {
     
     const user = new User();
 
@@ -22,6 +22,7 @@ class UsersRepositoryInMemory implements IUsersRepository {
     })
 
     this.users.push(user);
+    return user;
   }
 
   async findByEmail(email: string): Promise<User> {

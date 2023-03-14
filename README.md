@@ -14,6 +14,29 @@ São as características que um sistema deve ter para garantir que ele seja efic
 **RN - Regra de negócio**
 São as normas e procedimentos que governam a forma como a empresa funciona e que devem ser incorporados no sistema.
 
+## Cadastro usuário
+
+**RF**
+
+- Deve ser possível cadastrar um novo usuário.
+
+**RN**
+
+- Não dever possível cadastrar um usuário já existente.
+- O usuário deve ser cadastrado, por padrão, admin = false.
+
+## Listagem de usuários
+
+**RF**
+
+- Deve ser possível listar os usuários.
+
+**RN**
+
+- O usuário deve estar logado
+- Somente perfil admin exibe se usuário é admin
+- Nenhum perfil exibe o password
+
 ## Cadastro de carro
 
 **RF**
@@ -24,7 +47,7 @@ São as normas e procedimentos que governam a forma como a empresa funciona e qu
 
 - Não dever possível cadastrar um carro com a placa já existente.
 - O carro deve ser cadastrado, por padrão, com diponibilidade.
-- (criar teste na criação do controller) O usuário deve ter perfil administrador para incluir um novo cadastro.
+- O usuário deve ter perfil administrador para incluir um novo cadastro.
 
 ## Listagem de carros
 

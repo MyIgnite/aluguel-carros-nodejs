@@ -1,20 +1,8 @@
+import { IRequestAuthenticateUserUseCaseDTO, IResponseAuthenticateUserUseCaseDTO } from "@modules/accounts/dtos/UsersRepositoryDTO";
 import { IUsersRepository } from "@modules/accounts/repositories/IUsersRepository";
 import { compare } from "bcryptjs";
 import { sign } from "jsonwebtoken";
 import { inject, injectable } from "tsyringe";
-
-interface IRequest {
-  email: string;
-  password: string;
-}
-
-interface IResponse {
-  user: {
-    name: string;
-    email: string;
-  },
-  token: string;
-}
 
 /** NOTE TSyringe
  * @injectable() é um decorador que é aplicado a uma classe para 
@@ -39,7 +27,11 @@ class AuthenticateUserUseCase {
     private usersRepository: IUsersRepository
   ) {}
   
-  async execute({ email, password }: IRequest): Promise<IResponse> {
+  async execute({ 
+    email, 
+    password 
+  }: IRequestAuthenticateUserUseCaseDTO): Promise<IResponseAuthenticateUserUseCaseDTO> {
+
     const user =  await this.usersRepository.findByEmail(email);
     const msgError = "Email or password incorrect!"
 
@@ -59,7 +51,7 @@ class AuthenticateUserUseCase {
       expiresIn: "1d"
     });
 
-    const tokenReturn: IResponse = {
+    const tokenReturn: IResponseAuthenticateUserUseCaseDTO = {
       token,
       user: {
         name: user.name,

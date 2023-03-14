@@ -1,4 +1,5 @@
 import { IUsersRepositoryDTO } from "@modules/accounts/dtos/UsersRepositoryDTO";
+import { User } from "@modules/accounts/infra/typeorm/entities/User";
 import { IUsersRepository } from "@modules/accounts/repositories/IUsersRepository";
 import { hash } from "bcryptjs";
 import { inject, injectable } from "tsyringe";
@@ -16,7 +17,7 @@ class CreateUserUseCase {
     email,  
     password,
     driver_license
-  }: IUsersRepositoryDTO): Promise<void> {
+  }: IUsersRepositoryDTO): Promise<User> {
 
     const passwordHash = await hash(password, 10);
     
@@ -26,12 +27,14 @@ class CreateUserUseCase {
       throw new Error("User Already exists!");
     }
 
-    this.usersRepository.create({
+    const user = this.usersRepository.create({
       name,
       email,  
       password: passwordHash,
       driver_license
     });
+
+    return user;
   }
 
 }
